@@ -5,7 +5,7 @@ variable "environment" {
 variable "handler" {
   description = "Handler"
   type = string
-  default = "techchallenge_function_auth::techchallenge_function_auth.LambdaEntryPoint::FunctionHandlerAsync"
+  default = "TechChallenge.API::TechChallenge.API.LambdaEntryPoint::FunctionHandlerAsync"
 }
 
 variable "runtime" {
