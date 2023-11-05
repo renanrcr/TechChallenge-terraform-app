@@ -1,0 +1,45 @@
+name: "Destroy Terraform to AWS"
+
+on:
+  push:
+    branches:
+      - destroy-all
+
+jobs:
+  terraform:
+    name: "Destroy"
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.2
+      - name: Login to AWS
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.SECRET_KEY }}
+      - name: Setup terraform variables
+        run: |-
+          cat > pipeline.auto.tfvars <<EOF
+          access_key="${{secrets.ACCESS_KEY}}"
+          secret_key= "${{secrets.SECRET_KEY}}"
+          sqlserver_username="${{secrets.SQLSERVER_USERNAME}}"
+          sqlserver_password="${{secrets.SQLSERVER_PASSWORD}}"
+          environment="${{secrets.ENVIRONMENT}}"
+          region="${{secrets.AWS_REGION}}"
+      - name: Terraform fmt
+        id: tf-fmt
+        run: terraform fmt --recursive
+      - name: Prepare environment
+        run: terraform init
+      - name: Terraform validate
+        run: terraform validate -no-color
+      - name: Terraform Destroy
+        if: github.ref == 'refs/heads/destroy-all' && github.event_name == 'push'
+        run: terraform destroy -auto-approve -input=false
