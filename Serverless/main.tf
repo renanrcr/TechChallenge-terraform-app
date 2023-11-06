@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 resource "aws_lambda_function" "techchallenge_function" {
-  function_name = "TechChallenge.API"
+  function_name = "TechChallengeAPI"
   s3_bucket = var.bucket_name
   s3_key = "TechChallengeLambdaAuth.zip"
   handler = var.handler
