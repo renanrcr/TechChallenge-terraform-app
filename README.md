@@ -4,7 +4,7 @@ FIAP - Software Architecture FASE 3 Tech Challenge
 ![GitHub](https://img.shields.io/github/license/dropbox/dropbox-sdk-java)
 
 ## :memo: Descrição
-Este projeto foi criado como parte do Tech Challenge do curso da Pós Tech - Software Architecture (FIAP) e tem como objeto implementar a infraestrutura na AWS para um sistema de autoatendimento de fast food.
+Este projeto foi criado como parte do Tech Challenge do curso da Pós Tech - Software Architecture (FIAP) e tem como objetivo implementar a infraestrutura na AWS para um sistema de autoatendimento de fast food.
 
 Desta forma, foram criados módulos para gerenciar a parte da API Gateway e Lambda.
 
