@@ -34,18 +34,13 @@ resource "aws_api_gateway_method" "proxy" {
   authorization = "NONE"
 }
 
-resource "aws_iam_role" "role" {
-  name = "role"
-  assume_role_policy = "${var.arn}"
-}
-
 resource "aws_api_gateway_integration" "lambda" {
   rest_api_id = "${aws_api_gateway_rest_api.api_gateweay_techchallenge.id}"
   resource_id = "${aws_api_gateway_method.proxy.resource_id}"
   http_method = "${aws_api_gateway_method.proxy.http_method}"
   integration_http_method = "POST"
   type = "AWS_PROXY"
-  uri= aws_iam_role.role.arn
+  uri = "${var.arn}"
 }
 
 resource "aws_api_gateway_method" "proxy_root" {
@@ -61,7 +56,7 @@ resource "aws_api_gateway_integration" "lambda_root" {
   http_method = "${aws_api_gateway_method.proxy_root.http_method}"
   integration_http_method = "POST"
   type = "AWS_PROXY"
-  uri = aws_iam_role.role.arn
+  uri = "${var.arn}"
 }
 
 resource "aws_api_gateway_deployment" "gateway_deployment" {
