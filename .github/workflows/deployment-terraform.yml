@@ -37,7 +37,7 @@ jobs:
           terraform_version: 1.6.2
       - name: Prepare environment
         id: tf-init
-        run: terraform init
+        run: terraform init 
       - name: Terraform fmt
         id: tf-fmt
         run: terraform fmt --recursive
@@ -46,7 +46,7 @@ jobs:
         run: terraform validate -no-color
       - name: Terraform Plan
         id: tf-plan
-        run: terraform plan -no-color -input=false
+        run: terraform plan -lock=false -no-color -input=false
         continue-on-error: true
       - name: Update
         uses: actions/github-script@v6
@@ -126,8 +126,8 @@ jobs:
         with:
           terraform_version: 1.5.4
       - name: Prepare environment
-        run: terraform init
+        run: terraform init 
       - name: Terraform Plan
-        run: terraform plan -no-color -input=false
+        run: terraform plan -lock=false -no-color -input=false
       - name: Execute terraform apply
-        run: terraform apply -auto-approve -input=false
+        run: terraform apply -lock=false -auto-approve -input=false
