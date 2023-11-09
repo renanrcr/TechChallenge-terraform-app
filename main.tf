@@ -3,12 +3,12 @@ locals {
 }
 
 module "serverless" {
-  source = "./Serverless"
+  source = "./modules/serverless"
   environment = var.environment
 }
 
 module "apigateway" {
-  source = "./APIGateway"
+  source = "./modules/apiGateway"
   environment = var.environment
   arn = module.serverless.lambda_invoke_arn
   function_name = module.serverless.lambda_function_name

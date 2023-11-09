@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "assume_role" {
 resource "aws_lambda_function" "techchallenge_function" {
   function_name = "TechChallengeAPI"
   s3_bucket = var.bucket_name
-  s3_key = "TechChallengeLambdaAuth.zip"
+  s3_key = "TechChallenge.API/AspNetCoreFunction-CodeUri-Or-ImageUri-638350898152880179-638350898801615654.zip"
   handler = var.handler
   runtime = var.runtime
   role = aws_iam_role.lambda_exec.arn

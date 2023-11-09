@@ -29,8 +29,6 @@ jobs:
           cat > pipeline.auto.tfvars <<EOF
           access_key="${{secrets.ACCESS_KEY}}"
           secret_key= "${{secrets.SECRET_KEY}}"
-          sqlserver_username="${{secrets.SQLSERVER_USERNAME}}"
-          sqlserver_password="${{secrets.SQLSERVER_PASSWORD}}"
           environment="${{secrets.ENVIRONMENT}}"
           region="${{secrets.AWS_REGION}}"
       - name: Terraform fmt
@@ -42,4 +40,4 @@ jobs:
         run: terraform validate -no-color
       - name: Terraform Destroy
         if: github.ref == 'refs/heads/destroy-all' && github.event_name == 'push'
-        run: terraform destroy -auto-approve -input=false
+        run: terraform destroy -lock=false -auto-approve -input=false
